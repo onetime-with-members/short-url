@@ -1,3 +1,4 @@
+import Favicon from '@/components/favicon';
 import { defaultMetadata } from '@/lib/constants';
 import type { Metadata } from 'next';
 
@@ -10,6 +11,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Favicon />
+      </head>
       <body>{children}</body>
     </html>
   );
