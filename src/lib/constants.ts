@@ -5,6 +5,7 @@ export const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN;
 export const SHORT_URL_DOMAIN = process.env.NEXT_PUBLIC_SHORT_URL_DOMAIN;
 
 export const defaultMetadata = {
+  metadataBase: new URL(SHORT_URL_DOMAIN as string),
   title: 'OneTime',
   openGraph: {
     title: 'OneTime',
