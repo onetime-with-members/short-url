@@ -1,4 +1,4 @@
-import Favicon from '@/components/favicon';
+import Favicon from '@/components/Favicon';
 import { defaultMetadata } from '@/lib/constants';
 import type { Metadata } from 'next';
 

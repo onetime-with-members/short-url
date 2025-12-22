@@ -1,6 +1,11 @@
 import { fetchEvent, fetchOriginalUrl } from '@/lib/api';
-import { defaultMetadata, SHORT_URL_DOMAIN } from '@/lib/constants';
+import {
+  defaultMetadata,
+  SHORT_URL_DOMAIN,
+  SITE_DOMAIN,
+} from '@/lib/constants';
 import Redirect from '@/components/redirect';
+import { foundExampleEvent, generateEventMetadata } from '@/utils';
 
 export async function generateMetadata({
   params,
@@ -8,6 +13,14 @@ export async function generateMetadata({
   params: Promise<{ shortId: string }>;
 }) {
   const { shortId } = await params;
+
+  const exampleEvent = foundExampleEvent(shortId);
+  if (exampleEvent) {
+    return generateEventMetadata({
+      title: exampleEvent.title,
+      url: `${SITE_DOMAIN}/events/view/${shortId}`,
+    });
+  }
 
   const originalUrl = await fetchOriginalUrl(`${SHORT_URL_DOMAIN}/${shortId}`);
   if (!originalUrl) {
@@ -24,18 +37,10 @@ export async function generateMetadata({
     return defaultMetadata;
   }
 
-  return {
-    ...defaultMetadata,
-    title: `${event.title || '이벤트'} | OneTime`,
-    openGraph: {
-      title: `${event.title || '이벤트'} | OneTime`,
-      description:
-        '링크로 접속해 자신의 스케줄을 등록하고 모두가 맞는 시간을 찾으세요.',
-      images: '/images/opengraph-thumbnail.png',
-      siteName: 'OneTime',
-      url: originalUrl,
-    },
-  };
+  return generateEventMetadata({
+    title: event.title,
+    url: originalUrl,
+  });
 }
 
 export default function Page() {
