@@ -4,7 +4,7 @@ import {
   SHORT_URL_DOMAIN,
   SITE_DOMAIN,
 } from '@/lib/constants';
-import Redirect from '@/components/redirect';
+import Redirect from '@/components/Redirect';
 import { foundExampleEvent, generateEventMetadata } from '@/utils';
 
 export async function generateMetadata({
